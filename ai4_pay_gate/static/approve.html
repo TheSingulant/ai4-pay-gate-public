@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI4 Pay Gate: approve the exact order</title>
+<style>
+body{font:15px/1.45 system-ui,sans-serif;max-width:860px;margin:2rem auto;padding:0 1rem;color:#111}
+h1{font-size:1.3rem}section{border:1px solid #ddd;border-radius:8px;padding:1rem;margin:1rem 0}
+table{border-collapse:collapse;width:100%}td,th{border-bottom:1px solid #eee;padding:.3rem;text-align:left}
+code,pre{background:#f6f6f6;border-radius:4px;padding:.1rem .3rem;font-size:13px;white-space:pre-wrap;word-break:break-all}
+button{padding:.45rem .9rem;margin:.2rem;border-radius:6px;border:1px solid #888;background:#fff;cursor:pointer}
+.ok{color:#0a6b2d}.bad{color:#a40000}.tag{font-size:12px;padding:.05rem .4rem;border-radius:4px;background:#eee}
+</style></head><body>
+<h1>AI4 Pay Gate <span class="tag" id="mode">loading</span></h1>
+<p>An AI agent proposes a PayPal payment. You approve the exact payee, amount, currency and items. The gate issues a single-use permit bound to the SHA-256 of that order. Any change is blocked before PayPal is called.</p>
+<section><h2>1. Ask the agent</h2>
+<input id="req" style="width:70%" value="Two notebooks and a pen pack for a new hire">
+<button id="propose">Propose</button> <span id="prov"></span></section>
+<section><h2>2. Review and approve</h2><div id="order">No proposal yet.</div>
+<p><label>Approver token <input id="tok" type="password" autocomplete="off" style="width:16rem"></label>
+<button id="approve" disabled>Approve exact order</button></p><div id="permit"></div></section>
+<section><h2>3. Agent attempts payment</h2>
+<button data-t="none" class="pay" disabled>Pay as approved</button>
+<button data-t="raise_amount" class="pay" disabled>Agent raises amount</button>
+<button data-t="swap_payee" class="pay" disabled>Agent swaps payee</button>
+<button data-t="add_item" class="pay" disabled>Agent adds item</button>
+<button data-t="retry" class="pay" disabled>Agent retries</button>
+<div id="result"></div></section>
+<section><h2>Signed receipts</h2><button id="load">Refresh</button><pre id="receipts"></pre></section>
+<script>
+const $=s=>document.querySelector(s);let proposed=null,permit=null;
+const esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function j(u,o={}){const r=await fetch(u,{headers:{'Content-Type':'application/json',...(o.h||{})},method:o.m||'GET',body:o.b?JSON.stringify(o.b):undefined});return [r.status,await r.json()]}
+j('/api/status').then(([_,s])=>{$('#mode').textContent='PayPal: '+(s.paypal.configured?'SANDBOX (live calls)':'not configured')+' | model: '+s.model.label});
+$('#propose').onclick=async()=>{const [st,r]=await j('/api/agent/propose',{m:'POST',b:{request:$('#req').value}});
+ if(st!==200){$('#order').textContent='Agent error: '+(r.detail||st);return}
+ proposed=r.order;$('#prov').innerHTML='by <b>'+esc(r.provider)+'</b>';
+ $('#order').innerHTML='<p>Payee <b>'+esc(proposed.payee)+'</b>, total <b>'+esc(proposed.total)+' '+esc(proposed.currency)+'</b></p><table><tr><th>SKU</th><th>Item</th><th>Qty</th><th>Unit</th></tr>'+proposed.items.map(i=>'<tr><td>'+esc(i.sku)+'</td><td>'+esc(i.name)+'</td><td>'+esc(i.quantity)+'</td><td>'+esc(i.unit_amount)+'</td></tr>').join('')+'</table>';
+ $('#approve').disabled=false};
+$('#approve').onclick=async()=>{const [st,r]=await j('/api/approve',{m:'POST',b:{order:proposed},h:{'X-Approver-Token':$('#tok').value}});
+ if(st!==200||!r.ok){$('#permit').innerHTML='<span class="bad">Not approved: '+esc(r.reason||r.detail)+'</span>';return}
+ permit=r.permit_id;$('#permit').innerHTML='<span class="ok">Permit issued</span> bound to order hash <code>'+esc(r.order_hash)+'</code>';
+ document.querySelectorAll('.pay').forEach(b=>b.disabled=false)};
+const tamper={none:o=>o,raise_amount:o=>{o=structuredClone(o);o.items[0].unit_amount=(parseFloat(o.items[0].unit_amount)+20).toFixed(2);o.total=o.items.reduce((s,i)=>s+parseFloat(i.unit_amount)*i.quantity,0).toFixed(2);return o},
+ swap_payee:o=>({...structuredClone(o),payee:'attacker@personal.example.com'}),
+ add_item:o=>{o=structuredClone(o);o.items.push({sku:'SKU-STICKERS',name:'Sticker sheet',quantity:1,unit_amount:'4.25'});o.total=o.items.reduce((s,i)=>s+parseFloat(i.unit_amount)*i.quantity,0).toFixed(2);return o},retry:o=>o};
+document.querySelectorAll('.pay').forEach(b=>b.onclick=async()=>{const [st,r]=await j('/api/agent/pay',{m:'POST',b:{permit_id:permit,order:tamper[b.dataset.t](proposed)}});
+ const pp=r.receipt&&r.receipt.body.paypal||{};
+ $('#result').innerHTML=(r.ok?'<span class="ok">ALLOWED</span>':'<span class="bad">BLOCKED</span>')+' '+esc(r.reason||r.receipt.body.reason)+' | PayPal called: '+esc(pp.called)+(r.approve_url?' | <a target="_blank" rel="noopener" href="'+esc(r.approve_url)+'">buyer approves in PayPal sandbox</a>':'');load()});
+async function load(){const [_,r]=await j('/api/receipts');$('#receipts').textContent=JSON.stringify(r,null,1)}
+$('#load').onclick=load;
+</script></body></html>

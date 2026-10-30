@@ -1,0 +1,18 @@
+[
+ {
+  "ts": "2026-10-30T12:17:30Z",
+  "method": "POST",
+  "host": "api-m.sandbox.paypal.com",
+  "path": "/v1/oauth2/token",
+  "status": 200,
+  "paypal_debug_id": "f866888e85709"
+ },
+ {
+  "ts": "2026-10-30T12:17:31Z",
+  "method": "POST",
+  "host": "api-m.sandbox.paypal.com",
+  "path": "/v2/checkout/orders",
+  "status": 200,
+  "paypal_debug_id": "f866888f247d0"
+ }
+]

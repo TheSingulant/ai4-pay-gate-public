@@ -1,0 +1,61 @@
+{
+ "amount": {
+  "breakdown": {
+   "item_total": {
+    "currency_code": "USD",
+    "value": "30.50"
+   }
+  },
+  "currency_code": "USD",
+  "value": "30.50"
+ },
+ "custom_id": "6c0580459a310e93b02e2b509c0b756eb7a315598586734ea7a5e791ec9b5346",
+ "debug_id": "ca52a393619d3",
+ "fetched": "2026-10-30T11:54:07Z",
+ "id": "4CY72468DE151393K",
+ "intent": "CAPTURE",
+ "items": [
+  {
+   "category": "DIGITAL_GOODS",
+   "name": "Dot grid notebook",
+   "quantity": "2",
+   "sku": "SKU-NOTEBOOK",
+   "unit_amount": {
+    "currency_code": "USD",
+    "value": "12.00"
+   }
+  },
+  {
+   "category": "DIGITAL_GOODS",
+   "name": "Gel pen 3 pack",
+   "quantity": "1",
+   "sku": "SKU-PEN-3",
+   "unit_amount": {
+    "currency_code": "USD",
+    "value": "6.50"
+   }
+  }
+ ],
+ "links": [
+  {
+   "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4CY72468DE151393K",
+   "rel": "self"
+  },
+  {
+   "href": "https://www.sandbox.paypal.com/checkoutnow?token=4CY72468DE151393K",
+   "rel": "approve"
+  },
+  {
+   "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4CY72468DE151393K",
+   "rel": "update"
+  },
+  {
+   "href": "https://api.sandbox.paypal.com/v2/checkout/orders/4CY72468DE151393K/capture",
+   "rel": "capture"
+  }
+ ],
+ "payee": {
+  "email_address": "sb-tvjtp53628657@business.example.com"
+ },
+ "status": "CREATED"
+}

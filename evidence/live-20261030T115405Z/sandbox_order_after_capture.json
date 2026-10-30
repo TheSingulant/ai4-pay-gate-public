@@ -1,0 +1,28 @@
+{
+ "read_at_utc": "2026-10-30T12:14:38Z",
+ "order_id": "4CY72468DE151393K",
+ "order_status": "COMPLETED",
+ "amount": {
+  "currency_code": "USD",
+  "value": "30.50",
+  "breakdown": {
+   "item_total": {
+    "currency_code": "USD",
+    "value": "30.50"
+   }
+  }
+ },
+ "payee": "sb-tvjtp53628657@business.example.com",
+ "custom_id": "6c0580459a310e93b02e2b509c0b756eb7a315598586734ea7a5e791ec9b5346",
+ "capture": {
+  "id": "3M2115364G941974K",
+  "status": "COMPLETED",
+  "amount": {
+   "currency_code": "USD",
+   "value": "30.50"
+  },
+  "final_capture": true
+ },
+ "paypal_debug_id": "f828431f91c2b",
+ "note": "Read-only GET after capture. Payer details omitted."
+}

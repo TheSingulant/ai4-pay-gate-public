@@ -1,0 +1,5 @@
+{
+  "payee_allowlist": ["sb-tvjtp53628657@business.example.com"],
+  "max_amount": "150.00",
+  "currencies": ["USD"]
+}

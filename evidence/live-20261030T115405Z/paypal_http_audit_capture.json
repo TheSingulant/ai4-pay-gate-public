@@ -1,0 +1,26 @@
+[
+ {
+  "ts": "2026-10-30T12:14:23Z",
+  "method": "POST",
+  "host": "api-m.sandbox.paypal.com",
+  "path": "/v1/oauth2/token",
+  "status": 200,
+  "paypal_debug_id": "f320675a7b130"
+ },
+ {
+  "ts": "2026-10-30T12:14:23Z",
+  "method": "GET",
+  "host": "api-m.sandbox.paypal.com",
+  "path": "/v2/checkout/orders/4CY72468DE151393K",
+  "status": 200,
+  "paypal_debug_id": "f299113ebaf75"
+ },
+ {
+  "ts": "2026-10-30T12:14:26Z",
+  "method": "POST",
+  "host": "api-m.sandbox.paypal.com",
+  "path": "/v2/checkout/orders/4CY72468DE151393K/capture",
+  "status": 201,
+  "paypal_debug_id": "f299113ee389f"
+ }
+]

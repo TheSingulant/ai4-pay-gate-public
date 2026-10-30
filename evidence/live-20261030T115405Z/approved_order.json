@@ -1,0 +1,20 @@
+{
+ "currency": "USD",
+ "description": "AI4 Pay Gate demo order",
+ "items": [
+  {
+   "name": "Dot grid notebook",
+   "quantity": 2,
+   "sku": "SKU-NOTEBOOK",
+   "unit_amount": "12.00"
+  },
+  {
+   "name": "Gel pen 3 pack",
+   "quantity": 1,
+   "sku": "SKU-PEN-3",
+   "unit_amount": "6.50"
+  }
+ ],
+ "payee": "sb-tvjtp53628657@business.example.com",
+ "total": "30.50"
+}

@@ -1,0 +1,91 @@
+{
+ "public_key": "ugkXTLRHqF_KoRfODlasTUTj2asfjR_557XOn2KqLbA",
+ "kid": "ed25519:363048722f8e3ceb",
+ "receipts": [
+  {
+   "body": {
+    "approved_hash": "6c0580459a310e93b02e2b509c0b756eb7a315598586734ea7a5e791ec9b5346",
+    "approver": "operator-script",
+    "currency": "USD",
+    "decision": "approved",
+    "event": "approval",
+    "item_count": 2,
+    "kid": "ed25519:363048722f8e3ceb",
+    "order_hash": "6c0580459a310e93b02e2b509c0b756eb7a315598586734ea7a5e791ec9b5346",
+    "payee": "sb-tvjtp53628657@business.example.com",
+    "permit_expires": 1793363249,
+    "permit_id": "pmt_hQ7IGYJtiBu4jOXtSSCmh7Yu",
+    "prev": "0000000000000000000000000000000000000000000000000000000000000000",
+    "reason": "human_approved",
+    "receipt_id": "rcpt_7b98224cabef53a3",
+    "seq": 0,
+    "total": "30.50",
+    "ts": "2026-10-30T12:17:29Z",
+    "v": "ai4pg-receipt-v1"
+   },
+   "sig": "ZdKzVlAQfC9OsWligtGTseowIaXltJBHdwPYhjxfTD8yUdoZCMN3SJb_wzAMqoZ1wdmrVSbydyeFttWk74nqAA"
+  },
+  {
+   "body": {
+    "actor": "agent:LIVE:nvidia/Nemotron-3.5-Super-VL",
+    "approved_hash": "6c0580459a310e93b02e2b509c0b756eb7a315598586734ea7a5e791ec9b5346",
+    "currency": "USD",
+    "decision": "allowed",
+    "event": "payment_attempt",
+    "item_count": 2,
+    "kid": "ed25519:363048722f8e3ceb",
+    "order_hash": "6c0580459a310e93b02e2b509c0b756eb7a315598586734ea7a5e791ec9b5346",
+    "payee": "sb-tvjtp53628657@business.example.com",
+    "paypal": {
+     "called": true,
+     "debug_id": "f866888f247d0",
+     "mode": "live_sandbox",
+     "op": "create_order",
+     "order_id": "6YN25222V39712547",
+     "request_id": "ai4pg-5b899950425e19dad6a43c4d",
+     "status": "PAYER_ACTION_REQUIRED"
+    },
+    "permit_id": "pmt_hQ7IGYJtiBu4jOXtSSCmh7Yu",
+    "prev": "cf8dde54aec5805f066f1813144fe85af4d340363ac15dfbc277e3e0a93c0d85",
+    "reason": "gate_ok_order_created",
+    "receipt_id": "rcpt_253b67b2687322b7",
+    "seq": 1,
+    "total": "30.50",
+    "ts": "2026-10-30T12:17:31Z",
+    "v": "ai4pg-receipt-v1"
+   },
+   "sig": "Q22qb4juoE2VBY2HDudlIc7NTYmcMT9UyYGyrZflMdGc50Sd8PHiH8YMnuwLAw0F0sk_mV04xOSzGIjnQWMJDw"
+  },
+  {
+   "body": {
+    "v": "ai4pg-receipt-v1",
+    "receipt_id": "rcpt_64bf8c26120bd5c3",
+    "seq": 2,
+    "ts": "2026-10-30T12:24:02Z",
+    "kid": "ed25519:363048722f8e3ceb",
+    "prev": "265a7b6f74f8f3179793c55ef25cbe269ee5d9562634936724df89d88f934bd0",
+    "event": "capture_attempt",
+    "paypal_order_id": "6YN25222V39712547",
+    "order_hash": "6c0580459a310e93b02e2b509c0b756eb7a315598586734ea7a5e791ec9b5346",
+    "permit_id": "pmt_hQ7IGYJtiBu4jOXtSSCmh7Yu",
+    "payee": "sb-tvjtp53628657@business.example.com",
+    "currency": "USD",
+    "total": "30.50",
+    "item_count": 2,
+    "decision": "allowed",
+    "reason": "captured",
+    "readback_match": true,
+    "paypal": {
+     "called": true,
+     "mode": "live_sandbox",
+     "op": "capture",
+     "status": "COMPLETED",
+     "capture_ids": [
+      "71V442751H327834G"
+     ]
+    }
+   },
+   "sig": "4n3Iq9zKfwNS--JRvaToPdJr-NLiPhih24PUKo43UzWy7H1X-wsJD99g2aXgWrgeYV-XGL2LFzMsWWAk-z6uAQ"
+  }
+ ]
+}
