@@ -6,6 +6,8 @@ and every allowed or blocked attempt leaves an Ed25519 signed receipt that anyon
 Built by The Singulant for the PayPal AI Hackathon. Apache-2.0. This is a small, separately
 written reference gate. It is not the AI4 production core.
 
+Demo video (2:42): https://youtu.be/dhMbj3J-bvw
+
 ## Status: what is LIVE and what is SCRIPTED
 
 Be precise about this when reading any output from this repo.
@@ -49,7 +51,17 @@ See [evidence/README.md](evidence/README.md).
 7. Every step writes a signed, hash-chained receipt. `verify.py` checks signatures, chain,
    sequence and that no permit paid twice, using only the public key.
 
+## Prerequisites
+
+- Python 3.11 or 3.12 and git. No credentials are needed for the tests, the offline demo or `verify.py`.
+- For a live sandbox run only: a free PayPal Developer account (https://developer.paypal.com) and an OpenAI-compatible model API key.
+
 ## Quick start (local)
+
+```bash
+git clone https://github.com/TheSingulant/ai4-pay-gate-public && cd ai4-pay-gate-public
+```
+
 
 ```bash
 python3.12 -m venv .venv && . .venv/bin/activate
@@ -68,6 +80,13 @@ python verify.py evidence/live-<UTC>/receipts.jsonl --pubkey="$(cat evidence/liv
 # after the sandbox buyer approves at the printed link:
 python scripts/capture_live.py evidence/live-<UTC>
 ```
+
+### PayPal sandbox setup
+
+1. Sign in at https://developer.paypal.com, open Apps & Credentials, keep the toggle on **Sandbox**, and create an app (type Merchant).
+2. Copy the sandbox Client ID and Secret into `PAYPAL_CLIENT_ID` and `PAYPAL_CLIENT_SECRET`.
+3. Under Testing Tools > Sandbox Accounts, note your sandbox Business account email (payee) and use the sandbox Personal account to approve the order at the printed checkout link.
+4. The app does not read `.env` by itself. Load it with `set -a; . ./.env; set +a`.
 
 For live sandbox use, copy `.env.example` to `.env`, fill PayPal SANDBOX app credentials and an
 OpenAI-compatible model provider, and export them. Edit `policy/demo-policy.json` so the payee
@@ -90,3 +109,7 @@ docs/THREAT_MODEL.md           threat model
 ```
 
 See [docs/THREAT_MODEL.md](docs/THREAT_MODEL.md).
+
+## License
+
+Apache License 2.0. See [LICENSE](LICENSE) and [NOTICE](NOTICE).
